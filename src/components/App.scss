@@ -1,0 +1,10 @@
+.AuthForm {
+  transition: all 400ms ease-in-out;
+  opacity: 100%;
+
+  &.LoggedIn {
+    transition: all 400ms ease-in-out;
+    opacity: 0%;
+    display: none;
+  }
+}
