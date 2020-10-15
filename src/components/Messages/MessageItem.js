@@ -13,20 +13,20 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
   },
-  heading: {
+  fromHeading: {
     fontSize: theme.typography.pxToRem(15),
-    flexBasis: "33.33%",
+    flexBasis: "15%",
     flexShrink: 0,
   },
-  secondaryHeading: {
+  toHeading: {
     fontSize: theme.typography.pxToRem(15),
-    flexBasis: "33.33%",
+    flexBasis: "15%",
     flexShrink: 0,
     color: theme.palette.text.secondary,
   },
-  tricianoryHeading: {
+  subjectHeading: {
     fontSize: theme.typography.pxToRem(15),
-    flexBasis: "10%",
+    flexBasis: "15%",
     flexShrink: 0,
     color: theme.palette.text.secondary,
   },
@@ -58,22 +58,27 @@ const MessageItem = ({
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
-          <Typography className={classes.heading}>{Sender}</Typography>
-          <Typography className={classes.secondaryHeading}>
+          <Typography className={classes.fromHeading}>{Sender}</Typography>
+          <Typography className={classes.toHeading}>
+            {Receiver}
+          </Typography>
+          <Typography className={classes.subjectHeading}>
             {Subject}
           </Typography>
-          <Typography className={classes.tricianoryHeading}>{Date}</Typography>
+          <Typography className={classes.subjectHeading}>{Date}</Typography>
           <Button
             onClick={() => {
               deleteFunction(_id);
             }}
-            className={classes.tricianoryHeading}
+            className={classes.subjectHeading}
           >
             <FontAwesomeIcon icon={faTrash} />
           </Button>
         </AccordionSummary>
         <AccordionDetails>
+          <pre>
           <Typography>{Message}</Typography>
+          </pre>
         </AccordionDetails>
       </Accordion>
     </div>

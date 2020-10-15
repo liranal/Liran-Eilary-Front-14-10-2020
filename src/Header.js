@@ -2,13 +2,12 @@ import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { Link } from "react-router-dom";
-import { IconButton, makeStyles, Button } from "@material-ui/core";
+import { IconButton, makeStyles, Button, CssBaseline } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import {
   faInbox,
   faPaperPlane,
-  faShareSquare,
 } from "@fortawesome/free-solid-svg-icons";
 
 const StyledLink = styled(Link)`
@@ -23,9 +22,11 @@ const StyledLink = styled(Link)`
 
 const useStyles = makeStyles((theme) => ({
   header: {
-    backgroundColor: "transparent",
+    backgroundColor: " rgba(47, 185, 219, 0.2)",
     color: "black",
-    marginBottom: "1em",
+    height: "3.3rem",
+    alignContent: "center",
+    boxSizing: "border-box",
     textDecoration: "none",
   },
   authButton: {
@@ -38,28 +39,21 @@ const Header = ({ isSignedIn, logoutEvent }) => {
   const classes = useStyles();
   return (
     <div>
-      <AppBar position="relative" className={classes.header}>
+      <CssBaseline>
+      <AppBar className={classes.header}>
         <Toolbar>
           {isSignedIn ? (
             <div>
               <IconButton>
                 <StyledLink to="/Inbox">
                   <FontAwesomeIcon icon={faInbox} />
-                  <label>Inbox</label>
+                  <label></label>
                 </StyledLink>
               </IconButton>
-              |
-              <IconButton>
-                <StyledLink to="/Sent">
-                  <FontAwesomeIcon icon={faShareSquare} />
-                  <label>Sent</label>
-                </StyledLink>
-              </IconButton>
-              |
               <IconButton>
                 <StyledLink to="/NewMessage">
                   <FontAwesomeIcon icon={faPaperPlane} />
-                  <label>New Message</label>
+                  <label></label>
                 </StyledLink>
               </IconButton>
             </div>
@@ -80,6 +74,7 @@ const Header = ({ isSignedIn, logoutEvent }) => {
           </div>
         </Toolbar>
       </AppBar>
+      </CssBaseline>
     </div>
   );
 };

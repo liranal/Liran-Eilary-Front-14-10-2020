@@ -1,0 +1,101 @@
+#form-main{
+	width:100%;
+    padding-top:0px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+#form-div {
+	background-color:rgba(72,72,72,0.4);
+	padding-left:35px;
+	padding-right:35px;
+	padding-top:35px;
+	padding-bottom:50px;
+	width: 450px;
+	left: 50vw;
+	position: absolute;
+    margin-top:30px;
+	margin-left: -260px;
+}
+
+.form-Items{
+    width: 100%;
+    position: relative;
+}
+input::placeholder, textarea::placeholder{
+    color: rgba(123,123,123,0.5);
+}
+    .form-to{
+        margin-bottom: 1.5rem;
+        border:none;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        transition: all 0.5s ease-out ;
+        
+        padding: 0.5rem;  
+        width:60%;
+    }
+
+    .form-subject{ 
+        margin-bottom: 1.5rem;
+        border:none;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        transition: all 0.5s ease-out ;
+        padding: 0.5rem;
+        width:80%;
+ 
+    }
+
+    textarea {
+        padding: 0.5rem;
+        font-size: 1rem;
+        width: 100%;
+        height: 10vh;
+        line-height: 150%;
+        white-space: pre;
+        display: block;
+        border-radius: 3px;
+        resize: none;
+        margin-bottom: 1.5rem;
+    
+        border:none;
+        font-size: 1.2rem;
+        transition: all 0.5s ease-out ;
+    
+        &:focus, &:visited{
+            height: 40vh;
+        }
+    }
+
+    .form-submit{
+        
+        font-size: 1.2rem;
+        width:100%;
+        padding: 0.5rem;
+        &:hover{
+            box-shadow: 5px 5px 5px rgba(72,72,72,0.4);
+        }
+    }
+
+.warning{
+    background-color: rgba(206, 96, 96,0.9);
+    
+
+    &::placeholder{
+        color: black;
+        font-weight: 600;
+    }
+}
+
+
+@media only screen and (max-width: 580px) {
+	#form-div{
+		left: 3%;
+		margin-right: 3%;
+		width: 88%;
+		margin-left: 0;
+		padding-left: 3%;
+		padding-right: 3%;
+	}
+}

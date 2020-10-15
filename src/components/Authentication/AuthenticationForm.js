@@ -1,5 +1,10 @@
-import React, { useState } from "react";
-import { Login, Register } from "./Forms";
+import React, {
+  useState
+} from "react";
+import {
+  Login,
+  Register
+} from "./Forms";
 import "./AuthForm.scss";
 const AuthenticationForm = ({
   loginFunc,
@@ -28,45 +33,71 @@ const AuthenticationForm = ({
     setisLogginActive(!isLogginActive);
   };
 
-  return (
-    <div className="App">
-      <div className="login">
-        <div className="container" ref={(ref) => setcontainer(ref)}>
-          {isLogginActive && (
-            <Login
-              containerRef={(ref) => setcurrent(ref)}
-              loginFunc={loginFunc}
-              loginErr={errMessage}
-            />
-          )}
-          {!isLogginActive && (
-            <Register
-              containerRef={(ref) => setcurrent(ref)}
-              registerFunc={registerFunc}
-            />
-          )}
-        </div>
-        <RightSide
-          current={getCurrent()}
-          containerRef={(ref) => setrightSide(ref)}
-          onClick={changeState.bind(current)}
+  return ( <
+    div className = "App" >
+    <
+    div className = "login" >
+    <
+    div className = "container"
+    ref = {
+      (ref) => setcontainer(ref)
+    } > {
+      isLogginActive && ( <
+        Login containerRef = {
+          (ref) => setcurrent(ref)
+        }
+        loginFunc = {
+          loginFunc
+        }
+        loginErr = {
+          errMessage
+        }
         />
-      </div>
-    </div>
+      )
+    } {
+      !isLogginActive && ( <
+        Register containerRef = {
+          (ref) => setcurrent(ref)
+        }
+        registerFunc = {
+          registerFunc
+        }
+        />
+      )
+    } <
+    /div> <
+    RightSide current = {
+      getCurrent()
+    }
+    containerRef = {
+      (ref) => setrightSide(ref)
+    }
+    onClick = {
+      changeState.bind(current)
+    }
+    /> <
+    /div> <
+    /div>
   );
 };
 
 const RightSide = (props) => {
-  return (
-    <div
-      className="right-side right"
-      ref={props.containerRef}
-      onClick={props.onClick}
-    >
-      <div className="inner-container">
-        <div className="text">{props.current}</div>
-      </div>
-    </div>
+  return ( <
+    div className = "right-side right"
+    ref = {
+      props.containerRef
+    }
+    onClick = {
+      props.onClick
+    } >
+    <
+    div className = "inner-container" >
+    <
+    div className = "text" > {
+      props.current
+    } < /div> <
+    /div> <
+    /div>
   );
 };
 

@@ -3,21 +3,27 @@ import { useSelector, useDispatch } from "react-redux";
 import "./App.scss";
 import { Switch } from "react-router-dom";
 import LoginPage from "./containers/LoginPage";
-import HomePage from "./containers/InboxPage";
 import PrivateRoute from "../route/PrivateRoute";
 import PublicRoute from "../route/PublicRoute";
 import { animated, useTransition } from "react-spring";
 import { __RouterContext, withRouter } from "react-router";
 import Header from "../Header";
-import { logout } from "../actions";
+import { clearError, logout } from "../actions";
 import InboxPage from "./containers/InboxPage";
-import SentPage from "./containers/SentPage";
 import SendMessagePage from "./containers/SendMessagePage";
+import Popup from "./Popup";
 
 const App = () => {
   const isSignedIn = useSelector((state) => state.auth.isSignedIn);
+  const openPopup = useSelector((state) => state.errors.err);
+  const msgErr = useSelector((state) => state.errors.msg);
   const { location } = useContext(__RouterContext);
   const dispatch = useDispatch();
+
+  const closePopEvent = () => {
+    dispatch(clearError())
+  } 
+
   const trans = useTransition(location, location.pathname, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
@@ -29,7 +35,7 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div className="Container">
       <main className="container-fluid">
         <Header isSignedIn={isSignedIn} logoutEvent={logOutEvent} />
         {trans.map(({ item, props, key }) => (
@@ -48,12 +54,6 @@ const App = () => {
                 isSignedIn={isSignedIn}
               />
               <PrivateRoute
-                path="/Sent"
-                exact={true}
-                component={SentPage}
-                isSignedIn={isSignedIn}
-              />
-              <PrivateRoute
                 path="/NewMessage"
                 exact={true}
                 component={SendMessagePage}
@@ -63,6 +63,7 @@ const App = () => {
           </animated.div>
         ))}
       </main>
+      <Popup msg={msgErr} handleClose={closePopEvent} open={openPopup} />
     </div>
   );
 };

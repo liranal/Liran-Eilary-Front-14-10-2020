@@ -1,13 +1,24 @@
+import { makeStyles, Table, TableCell, TableContainer, TableHead, TableRow } from "@material-ui/core";
 import React from "react";
 import MessageItem from "./MessageItem";
 
 const MessageList = ({ messages, deleteFunction }) => {
+  const useStyles = makeStyles({
+    table: {
+    },
+  });
+  const classes = useStyles();
   const renderMessages = () => {
+
     if (messages) {
       return messages.map((msg, index) => {
-        console.log(msg);
         return (
-          <MessageItem {...msg} key={index} deleteFunction={deleteFunction} />
+          <div>
+
+        <MessageItem {...msg} key={index} deleteFunction={deleteFunction} />
+
+         
+          </div>
         );
       });
     } else {
@@ -15,7 +26,22 @@ const MessageList = ({ messages, deleteFunction }) => {
     }
   };
 
-  return <div>{renderMessages()}</div>;
+  return <div>
+    <TableContainer>
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>From</TableCell>
+            <TableCell>To</TableCell>
+            <TableCell align="">Subject</TableCell>
+            <TableCell align="left">Time</TableCell>
+
+          </TableRow>
+        </TableHead>
+        </Table>
+        {renderMessages()}
+      </TableContainer>
+      </div>;
 };
 
 export default MessageList;

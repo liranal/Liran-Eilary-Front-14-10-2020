@@ -1,3 +1,4 @@
+import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
 import loginImg from "../../../login.svg";
 
@@ -5,6 +6,30 @@ export const Register = ({ containerRef, registerFunc }) => {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
   const [email, setemail] = useState("");
+  const [usernameErr, setusernameErr] = useState(false)
+  const [passwordErr, setpasswordErr] = useState(false)
+  const [emailErr, setemailErr] = useState(false)
+  
+  const validation = (e) => {
+    e.preventDefault();
+    if(username === ""){
+      setusernameErr(true)
+      return;
+    }else{setusernameErr(false)}
+    if(password === ""){
+      setpasswordErr(true)
+      return;
+    }else{setpasswordErr(false)}
+    if(email === ""){
+      setpasswordErr(true)
+      return;
+    }else{setemailErr(false)}
+    setusername("")
+    setpassword("")
+    setemail("")
+    registerFunc(username, email, password);
+  } 
+
   return (
     <div className="base-container" ref={containerRef}>
       <div className="header">Register</div>
@@ -12,9 +37,10 @@ export const Register = ({ containerRef, registerFunc }) => {
         <div className="image">
           <img src={loginImg} alt="LoginSVG" />
         </div>
-        <form>
+        <form onSubmit={(e)=>validation(e)}>
           <div className="form-group">
             <label htmlFor="username">Username</label>
+            {usernameErr ? <Alert severity="error">Username Required</Alert> : null}
             <input
               type="text"
               name="username"
@@ -27,6 +53,7 @@ export const Register = ({ containerRef, registerFunc }) => {
           </div>
           <div className="form-group">
             <label htmlFor="email">Email</label>
+            {emailErr ? <Alert severity="error">Email Required</Alert> : null}
             <input
               type="text"
               name="email"
@@ -39,6 +66,7 @@ export const Register = ({ containerRef, registerFunc }) => {
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
+            {passwordErr ? <Alert severity="error">Password Required</Alert> : null}
             <input
               type="password"
               name="password"
@@ -49,19 +77,17 @@ export const Register = ({ containerRef, registerFunc }) => {
               }}
             />
           </div>
+          <input
+          type="submit"
+          className="btn"
+          value="Register"
+        />
         </form>
       </div>
       <div className="footer">
-        <button
-          type="button"
-          className="btn"
-          onClick={(e) => {
-            e.preventDefault();
-            registerFunc(username, email, password);
-          }}
-        >
-          Register
-        </button>
+       
+        
+        
       </div>
     </div>
   );

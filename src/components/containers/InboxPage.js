@@ -1,23 +1,46 @@
-import React, { useEffect } from "react";
+import { FormControlLabel, Switch } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { delete_message, fetch_messages } from "../../actions";
 import AbsoluteWrapeer from "../../route/AbsoluteWrapper";
 import MessageList from "../Messages/MessageList";
 const InboxPage = () => {
-  const userId = useSelector((state) => state.auth.userId);
-  const messages = useSelector((state) => state.messages);
+  const username = useSelector((state) => state.auth.userDetails.username)
+   const messages = useSelector((state) => state.messages)
+  const [sentFilterFlag, setsentFilterFlag] = useState(false)
+
+  const setFilterFlag = () =>{
+    setsentFilterFlag(!sentFilterFlag)
+  }
+
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetch_messages(userId));
-  }, [userId, dispatch]);
+    dispatch(fetch_messages(username));
+    return () =>{
+      
+    }
+  }, [username, dispatch]);
 
   const deleteFunc = (id) => {
     dispatch(delete_message(id));
   };
+
+  let filter = (sentFilterFlag) ? messages.filter((msg) => {return  msg.Sender === username}): null;
   return (
     <AbsoluteWrapeer>
       <div>
-        <MessageList messages={messages} deleteFunction={deleteFunc} />
+        <FormControlLabel
+        control={
+          <Switch
+            checked={sentFilterFlag}
+            onChange={()=> {setFilterFlag()}}
+            name="sentFilterSwitch"
+            color="primary"
+          />
+        }
+        label="Sent Filter"
+      />
+        <MessageList messages={filter || messages} deleteFunction={deleteFunc} />
       </div>
     </AbsoluteWrapeer>
   );

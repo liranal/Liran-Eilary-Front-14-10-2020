@@ -2,9 +2,25 @@ import React, { useState } from "react";
 import loginImg from "../../../login.svg";
 import Alert from "@material-ui/lab/Alert";
 
-export const Login = ({ containerRef, loginFunc, loginErr }) => {
+export const Login = ({ containerRef, loginFunc }) => {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
+  const [usernameErr, setusernameErr] = useState(false)
+  const [passwordErr, setpasswordErr] = useState(false)
+  const validation = (e) => {
+    e.preventDefault();
+    if(username === ""){
+      setusernameErr(true)
+      return;
+    }else{setusernameErr(false)}
+    if(password === ""){
+      setpasswordErr(true)
+      return;
+    }else{setpasswordErr(false)}
+    setusername("")
+    setpassword("")
+    loginFunc(username, password);
+  } 
   return (
     <div className="base-container" ref={containerRef}>
       <div className="header">Login</div>
@@ -12,9 +28,10 @@ export const Login = ({ containerRef, loginFunc, loginErr }) => {
         <div className="image">
           <img src={loginImg} alt="LoginSVG" />
         </div>
-        <form>
+        <form onSubmit={(e) => validation(e)}>
           <div className="form-group">
             <label htmlFor="username">Username</label>
+            {usernameErr ? <Alert severity="error">Username Required</Alert> : null}
             <input
               type="text"
               name="username"
@@ -24,9 +41,12 @@ export const Login = ({ containerRef, loginFunc, loginErr }) => {
                 setusername(e.target.value);
               }}
             />
+           
           </div>
+          
           <div className="form-group">
             <label htmlFor="password">Password</label>
+            {passwordErr ? <Alert severity="error">Password Required</Alert> : null}
             <input
               type="password"
               name="password"
@@ -36,21 +56,22 @@ export const Login = ({ containerRef, loginFunc, loginErr }) => {
                 setpassword(e.target.value);
               }}
             />
+            
           </div>
+          <input
+          type="submit"
+          className="btn"
+          onClick={(e) => {
+            
+          }}
+          value="Login"
+        />
+
         </form>
       </div>
       <div className="footer">
-        <button
-          type="button"
-          className="btn"
-          onClick={(e) => {
-            e.preventDefault();
-            loginFunc(username, password);
-          }}
-        >
-          Login
-        </button>
-        {loginErr ? <Alert severity="error">{loginErr}</Alert> : null}
+      
+        
       </div>
     </div>
   );
