@@ -11,7 +11,8 @@ import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100%",
+    width: "90%",
+    marginLeft: "5%",
   },
   fromHeading: {
     fontSize: theme.typography.pxToRem(15),
@@ -50,37 +51,37 @@ const MessageItem = ({
   return (
     <div className={classes.root}>
       <Accordion
-        expanded={expanded === "panel1"}
-        onChange={handleChange("panel1")}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1bh-content"
-          id="panel1bh-header"
-        >
-          <Typography className={classes.fromHeading}>{Sender}</Typography>
-          <Typography className={classes.toHeading}>
-            {Receiver}
-          </Typography>
-          <Typography className={classes.subjectHeading}>
-            {Subject}
-          </Typography>
-          <Typography className={classes.subjectHeading}>{Date}</Typography>
-          <Button
-            onClick={() => {
-              deleteFunction(_id);
-            }}
-            className={classes.subjectHeading}
-          >
-            <FontAwesomeIcon icon={faTrash} />
-          </Button>
-        </AccordionSummary>
-        <AccordionDetails>
-          <pre>
-          <Typography>{Message}</Typography>
-          </pre>
-        </AccordionDetails>
-      </Accordion>
+expanded={expanded === "panel1"}
+onChange={handleChange("panel1")}
+>
+<AccordionSummary
+  expandIcon={<ExpandMoreIcon />}
+  aria-controls="panel1bh-content"
+  id="panel1bh-header"
+>
+  <Typography className={classes.fromHeading}>{Sender}</Typography>
+  <Typography className={classes.toHeading}>
+    {Receiver}
+  </Typography>
+  <Typography className={classes.subjectHeading}>
+    {Subject}
+  </Typography>
+  <Typography className={classes.subjectHeading}>{Date}</Typography>
+  <Button
+    onClick={() => {
+      deleteFunction(_id);
+    }}
+    className={classes.subjectHeading}
+  >
+    <FontAwesomeIcon icon={faTrash} />
+  </Button>
+</AccordionSummary>
+<AccordionDetails>
+  <pre>
+  <Typography>{Message}</Typography>
+  </pre>
+</AccordionDetails>
+</Accordion>
     </div>
   );
 };

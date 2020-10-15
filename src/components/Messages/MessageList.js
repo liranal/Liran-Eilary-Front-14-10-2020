@@ -1,23 +1,14 @@
-import { makeStyles, Table, TableCell, TableContainer, TableHead, TableRow } from "@material-ui/core";
 import React from "react";
 import MessageItem from "./MessageItem";
+import MessageListHeader from "./MessageListHeader";
 
 const MessageList = ({ messages, deleteFunction }) => {
-  const useStyles = makeStyles({
-    table: {
-    },
-  });
-  const classes = useStyles();
   const renderMessages = () => {
-
     if (messages) {
       return messages.map((msg, index) => {
         return (
           <div>
-
         <MessageItem {...msg} key={index} deleteFunction={deleteFunction} />
-
-         
           </div>
         );
       });
@@ -27,20 +18,8 @@ const MessageList = ({ messages, deleteFunction }) => {
   };
 
   return <div>
-    <TableContainer>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>From</TableCell>
-            <TableCell>To</TableCell>
-            <TableCell align="">Subject</TableCell>
-            <TableCell align="left">Time</TableCell>
-
-          </TableRow>
-        </TableHead>
-        </Table>
+    <MessageListHeader/>
         {renderMessages()}
-      </TableContainer>
       </div>;
 };
 
