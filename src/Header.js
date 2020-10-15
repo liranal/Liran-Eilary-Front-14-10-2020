@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
     textDecoration: "none",
   },
+  loginLogoutButtonToRight: {
+    flexGrow: 1,
+  },
 }));
 
 const Header = ({ isSignedIn, logoutEvent }) => {
@@ -42,22 +45,22 @@ const Header = ({ isSignedIn, logoutEvent }) => {
       <CssBaseline>
       <AppBar className={classes.header}>
         <Toolbar>
+        <div className={classes.loginLogoutButtonToRight}>
           {isSignedIn ? (
             <div>
-              <IconButton>
+              <IconButton className={classes.menuButton}>
                 <StyledLink to="/Inbox">
                   <FontAwesomeIcon icon={faInbox} />
-                  <label></label>
                 </StyledLink>
               </IconButton>
-              <IconButton>
+              <IconButton className={classes.menuButton}>
                 <StyledLink to="/NewMessage">
                   <FontAwesomeIcon icon={faPaperPlane} />
-                  <label></label>
                 </StyledLink>
               </IconButton>
             </div>
           ) : null}
+          </div>
           <div>
             {isSignedIn ? (
               <Button
