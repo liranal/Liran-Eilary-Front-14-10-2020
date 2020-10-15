@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Button, Input, TextareaAutosize } from "@material-ui/core";
 import "./MessageForm.scss"
 const MessageForm = ({ SendFunc }) => {
   const [receiver, setReceiver] = useState("");

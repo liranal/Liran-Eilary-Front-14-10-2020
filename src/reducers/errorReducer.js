@@ -7,7 +7,6 @@ POST_MESSAGE_FAILED
 
 const INITIAL_STATE={err: false, code: null, msg: null}
 export default (state = INITIAL_STATE, action) => {
-  console.log(action)
   switch (action.type) {
     case POST_MESSAGE_FAILED:
         return {  err: true,code: action.payload.status,

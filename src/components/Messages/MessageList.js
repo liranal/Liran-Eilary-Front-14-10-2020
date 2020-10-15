@@ -7,9 +7,7 @@ const MessageList = ({ messages, deleteFunction }) => {
     if (messages) {
       return messages.map((msg, index) => {
         return (
-          <div>
         <MessageItem {...msg} key={index} deleteFunction={deleteFunction} />
-          </div>
         );
       });
     } else {

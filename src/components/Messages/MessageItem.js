@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "90%",
     marginLeft: "5%",
+    opacity: "0.9"
   },
   fromHeading: {
     fontSize: theme.typography.pxToRem(15),
@@ -33,12 +34,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const leadingZeroes = (n) =>{
+  if(n <= 9){
+    return "0" + n;
+  }
+  return n
+}
+
+
 const MessageItem = ({
   _id,
   Sender,
   Receiver,
   Message,
-  Date,
+  Date: date,
   Subject,
   deleteFunction,
 }) => {
@@ -48,6 +57,7 @@ const MessageItem = ({
     setExpanded(isExpanded ? panel : false);
   };
 
+  let convertDate = new Date(date);
   return (
     <div className={classes.root}>
       <Accordion
@@ -66,7 +76,12 @@ onChange={handleChange("panel1")}
   <Typography className={classes.subjectHeading}>
     {Subject}
   </Typography>
-  <Typography className={classes.subjectHeading}>{Date}</Typography>
+  <Typography className={classes.subjectHeading}>{
+  leadingZeroes(convertDate.getDate()) + "/" +
+  leadingZeroes(convertDate.getMonth()) + "/" + 
+  leadingZeroes(convertDate.getYear()) + "\n" + 
+  leadingZeroes(convertDate.getHours()) + ":" + 
+  leadingZeroes(convertDate.getMinutes())}</Typography>
   <Button
     onClick={() => {
       deleteFunction(_id);
