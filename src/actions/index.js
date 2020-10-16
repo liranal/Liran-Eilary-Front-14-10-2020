@@ -17,7 +17,9 @@ import {
 import axios from "axios";
 import { history } from "../route/history";
 
-export const logout = (dataForLogout) => {
+const URI = "http://liran-eilary-email-back.herokuapp.com/"
+
+export const logout = () => {
   return { type: SIGN_OUT, payload: { isSignedIn: false, userId: null } };
 };
 
@@ -32,7 +34,7 @@ export const clearError = () =>{
 export const register = (dataForRegister) => async (dispatch) => {
   try{
   const response = await axios.post(
-    "http://localhost:40040/api/auth/register",
+    `${URI}api/auth/register`,
     dataForRegister
   );
   dispatch({ type: REGISTRATION_SUCCESS, payload: response.data });
@@ -44,14 +46,14 @@ export const register = (dataForRegister) => async (dispatch) => {
 export const login = (dataForLogin) => async (dispatch) => {
   try {
     const LoginResponse = await axios.post(
-      "http://localhost:40040/api/auth/login",
+      `${URI}api/auth/login`,
       dataForLogin
     );
     if (LoginResponse.data.auth) {
       
       
       const UserInfoResponse = await axios.get(
-        `http://localhost:40040/api/users/${LoginResponse.data.userId}`,
+        `${URI}api/users/${LoginResponse.data.userId}`,
         {
           headers: {
             "x-access-token": LoginResponse.data.token,
@@ -72,7 +74,7 @@ export const login = (dataForLogin) => async (dispatch) => {
 export const fetch_messages = () => async (dispatch, getState) => {
   let { userDetails, token } = getState().auth;
   const response = await axios.get(
-    `http://localhost:40040/api/message/${userDetails.username}`,
+    `${URI}api/message/${userDetails.username}`,
     {
       headers: {
         "x-access-token": token,
@@ -90,7 +92,7 @@ export const patch_username = (username) => async(dispatch,getState) => {
   let oldUsername = userDetails.username;
   try{
     const UserResponse = await axios.patch(
-      `http://localhost:40040/api/users/${userId}`,{username, oldUsername},
+      `${URI}api/users/${userId}`,{username, oldUsername},
       {
         headers: {
           "x-access-token": token,
@@ -110,7 +112,7 @@ export const patch_username = (username) => async(dispatch,getState) => {
 export const delete_message = (id) => async (dispatch, getState) => {
   let { token } = getState().auth;
   const response = await axios.delete(
-    `http://localhost:40040/api/message/${id}`,
+    `${URI}api/message/${id}`,
     {
       headers: {
         "x-access-token": token,
@@ -130,7 +132,7 @@ let { token, userDetails} = getState().auth;
 msgObj = {...msgObj, sender: userDetails.username}
 try{
   const response = await axios.post(
-    `http://localhost:40040/api/message/`,msgObj,
+    `${URI}api/message/`,msgObj,
     {
       headers: {
         "x-access-token": token,
