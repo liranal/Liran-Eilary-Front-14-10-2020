@@ -8,6 +8,11 @@ import {
   CLEAR_ERROR,
   REGISTRATION_FAILED,
   POST_MESSAGE,
+  UPDATE_USERNAME,
+  UPDATE_USERNAME_SUCCESS,
+  REGISTRATION_SUCCESS,
+  MESSAGE_POST_SUCCESS,
+  CLEAR_MESSAGES,
 } from "./types";
 import axios from "axios";
 import { history } from "../route/history";
@@ -16,6 +21,9 @@ export const logout = (dataForLogout) => {
   return { type: SIGN_OUT, payload: { isSignedIn: false, userId: null } };
 };
 
+export const clearMessages = () => {
+  return {type: CLEAR_MESSAGES};
+}
 
 export const clearError = () =>{
   return {type: CLEAR_ERROR}
@@ -27,7 +35,7 @@ export const register = (dataForRegister) => async (dispatch) => {
     "http://localhost:40040/api/auth/register",
     dataForRegister
   );
-  dispatch({ type: "REGISTER", payload: response.data });
+  dispatch({ type: REGISTRATION_SUCCESS, payload: response.data });
   }catch(err){
     dispatch({type: REGISTRATION_FAILED, payload: err.response})
   }
@@ -77,6 +85,28 @@ export const fetch_messages = () => async (dispatch, getState) => {
   });
 };
 
+export const patch_username = (username) => async(dispatch,getState) => {
+  let {token,userId, userDetails} = getState().auth
+  let oldUsername = userDetails.username;
+  try{
+    const UserResponse = await axios.patch(
+      `http://localhost:40040/api/users/${userId}`,{username, oldUsername},
+      {
+        headers: {
+          "x-access-token": token,
+        },
+      }
+    );
+    
+    dispatch({type: UPDATE_USERNAME,payload: UserResponse.data});
+    dispatch({type: UPDATE_USERNAME_SUCCESS})
+  }catch(err){
+    if (err.response) {
+       dispatch({ type: POST_MESSAGE_FAILED, payload: err.response });
+     }
+    }
+  }
+
 export const delete_message = (id) => async (dispatch, getState) => {
   let { token } = getState().auth;
   const response = await axios.delete(
@@ -112,6 +142,7 @@ try{
       type: POST_MESSAGE,
       payload: msgObj,
     });
+    dispatch({type: MESSAGE_POST_SUCCESS})
   }
 }catch(err){
    if (err.response) {

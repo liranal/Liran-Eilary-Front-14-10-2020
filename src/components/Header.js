@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: " rgba(47, 185, 219, 0.2)",
     color: "black",
     height: "3.3rem",
-    alignContent: "center",
     boxSizing: "border-box",
     textDecoration: "none",
   },
@@ -36,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
   loginLogoutButtonToRight: {
     flexGrow: 1,
   },
+  title:{
+    flexGrow: 2,
+  }
 }));
 
 const Header = ({ isSignedIn, logoutEvent }) => {

@@ -1,6 +1,7 @@
 import {
   SIGN_IN,
   SIGN_OUT,
+  UPDATE_USERNAME,
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -11,6 +12,7 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
+  console.log(action.payload)
   switch (action.type) {
     case SIGN_IN:
       return {
@@ -27,7 +29,13 @@ export default (state = INITIAL_STATE, action) => {
         token: null,
         userDetails: null,
       };
+    case UPDATE_USERNAME:
+      return {
+        ...state,
+        userDetails: {...action.payload}
+      }
     default:
       return state;
+
   }
 };

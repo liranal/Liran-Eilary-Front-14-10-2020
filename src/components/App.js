@@ -7,16 +7,17 @@ import PrivateRoute from "../route/PrivateRoute";
 import PublicRoute from "../route/PublicRoute";
 import { animated, useTransition } from "react-spring";
 import { __RouterContext, withRouter } from "react-router";
-import Header from "../Header";
-import { clearError, logout } from "../actions";
+import Header from "./Header";
+import { clearError, clearMessages, logout } from "../actions";
 import InboxPage from "./containers/InboxPage";
 import SendMessagePage from "./containers/SendMessagePage";
 import Popup from "./Popup";
-
 const App = () => {
   const isSignedIn = useSelector((state) => state.auth.isSignedIn);
-  const openPopup = useSelector((state) => state.errors.err);
+  const openPopupErr = useSelector((state) => state.errors.err);
+  const openPopupNote = useSelector((state) => state.errors.note);
   const msgErr = useSelector((state) => state.errors.msg);
+
   const { location } = useContext(__RouterContext);
   const dispatch = useDispatch();
 
@@ -32,6 +33,7 @@ const App = () => {
 
   const logOutEvent = () => {
     dispatch(logout());
+    dispatch(clearMessages())
   };
 
   return (
@@ -63,7 +65,7 @@ const App = () => {
           </animated.div>
         ))}
       </main>
-      <Popup msg={msgErr} handleClose={closePopEvent} open={openPopup} />
+      <Popup msg={msgErr} handleClose={closePopEvent} note={openPopupNote} err={openPopupErr} />
     </div>
   );
 };
