@@ -1,13 +1,3 @@
-.AuthForm {
-  transition: all 400ms ease-in-out;
-  opacity: 100%;
-
-  &.LoggedIn {
-    transition: all 400ms ease-in-out;
-    display: none;
-  }
-}
-
 .Container{
   margin-top: 11vh;
 }
