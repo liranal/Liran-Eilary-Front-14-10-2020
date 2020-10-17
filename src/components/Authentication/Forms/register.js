@@ -10,20 +10,33 @@ export const Register = ({ containerRef, registerFunc }) => {
   const [passwordErr, setpasswordErr] = useState(false)
   const [emailErr, setemailErr] = useState(false)
   
+  const emailIsValid = () => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  }
+
+  const passwordValid = () =>{
+    return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(password)
+  }
+
   const validation = (e) => {
     e.preventDefault();
     if(username === ""){
       setusernameErr(true)
       return;
     }else{setusernameErr(false)}
-    if(password === ""){
+
+    console.log("CHECK VALID: " + emailIsValid())
+    if(email === "" || !emailIsValid()){
+      setemailErr(true)
+      return;
+    }else{setemailErr(false)}
+    
+
+    if(password === "" || !passwordValid()){
       setpasswordErr(true)
       return;
     }else{setpasswordErr(false)}
-    if(email === ""){
-      setpasswordErr(true)
-      return;
-    }else{setemailErr(false)}
+
     setusername("")
     setpassword("")
     setemail("")
@@ -40,7 +53,6 @@ export const Register = ({ containerRef, registerFunc }) => {
         <form onSubmit={(e)=>validation(e)}>
           <div className="form-group">
             <label htmlFor="username">Username</label>
-            {usernameErr ? <Alert severity="error">Username Required</Alert> : null}
             <input
               type="text"
               name="username"
@@ -53,7 +65,7 @@ export const Register = ({ containerRef, registerFunc }) => {
           </div>
           <div className="form-group">
             <label htmlFor="email">Email</label>
-            {emailErr ? <Alert severity="error">Email Required</Alert> : null}
+            
             <input
               type="text"
               name="email"
@@ -66,7 +78,6 @@ export const Register = ({ containerRef, registerFunc }) => {
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            {passwordErr ? <Alert severity="error">Password Required</Alert> : null}
             <input
               type="password"
               name="password"
@@ -82,12 +93,14 @@ export const Register = ({ containerRef, registerFunc }) => {
           className="btn"
           value="Register"
         />
+        
         </form>
       </div>
       <div className="footer">
-       
-        
-        
+        {usernameErr ? <Alert severity="error">Username not valid</Alert> : null}
+        {emailErr ? <Alert severity="error">Email not valid</Alert> : null}
+        {passwordErr ? <Alert severity="error">              
+        Password must contain at least 8 characters, including UPPER, lowercase, numbers and special characters</Alert> : null}
       </div>
     </div>
   );
