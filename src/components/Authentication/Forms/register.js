@@ -20,7 +20,7 @@ export const Register = ({ containerRef, registerFunc }) => {
 
   const validation = (e) => {
     e.preventDefault();
-    if(!username){
+    if(!username ||  username.length < 3){
       setusernameErr(true)
       return;
     }else{setusernameErr(false)}
