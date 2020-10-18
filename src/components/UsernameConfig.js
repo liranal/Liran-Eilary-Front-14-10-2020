@@ -17,8 +17,6 @@ const UsernameConfig = ({username, saveUsernameFunc}) =>{
       }));
 
       useEffect(() => {
-        console.log(usernameProp)
-        console.log(usernameProp === username)
         if(!usernameProp || usernameProp === username || usernameProp.length < 3){
           setusernameErr(true)
         }else{
