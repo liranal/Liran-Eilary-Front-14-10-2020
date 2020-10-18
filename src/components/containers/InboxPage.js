@@ -30,7 +30,7 @@ const InboxPage = () => {
       dispatch(patch_username(newUsername))
   }
 
-  let filter = (sentFilterFlag) ? messages.filter((msg) => {return  msg.Sender === username && msg.Receiver !== "Me"}): messages.filter((msg) => {return  msg.Receiver === username});
+  let filter = (sentFilterFlag) ? messages.filter((msg) => {return  msg.Sender === username || msg.Sender === "Me"}): messages.filter((msg) => {return  msg.Receiver === username || msg.Receiver === "Me" });
   return (
     <AbsoluteWrapeer>
       <div>
