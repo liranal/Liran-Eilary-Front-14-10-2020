@@ -1,4 +1,4 @@
-import { FormControlLabel, Switch } from "@material-ui/core";
+import { FormControlLabel, Grid, Switch } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { delete_message, fetch_messages, patch_username } from "../../actions";
@@ -30,23 +30,24 @@ const InboxPage = () => {
     dispatch(patch_username(newUsername))
   }
 
-  let filter = (sentFilterFlag) ? messages.filter((msg) => {return  msg.Sender === username}): null;
+  let filter = (sentFilterFlag) ? messages.filter((msg) => {return  msg.Sender === username}): messages.filter((msg) => {return  msg.Receiver === username});
   return (
     <AbsoluteWrapeer>
       <div>
       <UsernameConfig username={username} saveUsernameFunc={saveUsername}/>
-        <FormControlLabel
-        style={{marginLeft:"5%"}}
-        control={
-          <Switch
+      <Grid component="label" container style={{marginLeft:"5%"}} alignItems="center" spacing={1}>
+      <Grid item>Received</Grid>
+      <Grid item>
+        <Switch
             checked={sentFilterFlag}
             onChange={()=> {setFilterFlag()}}
             name="sentFilterSwitch"
-            color="primary"
-          />
-        }
-        label="Sent Filter"
-      />
+            color="default"
+        />
+      </Grid>
+      <Grid item>Sent</Grid>
+</Grid>
+
         <MessageList messages={filter || messages} deleteFunction={deleteFunc} />
       </div>
     </AbsoluteWrapeer>
