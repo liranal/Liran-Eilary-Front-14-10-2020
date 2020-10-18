@@ -50,13 +50,18 @@ const Header = ({ isSignedIn, logoutEvent }) => {
         <div className={classes.loginLogoutButtonToRight}>
           {isSignedIn ? (
             <div>
+              
               <IconButton className={classes.menuButton}>
                 <StyledLink to="/Inbox">
+                <div style={{marginRight: "0.3rem", display:"inline-block"}}>Inbox</div> 
                   <FontAwesomeIcon icon={faInbox} />
                 </StyledLink>
               </IconButton>
+              
               <IconButton className={classes.menuButton}>
+              
                 <StyledLink to="/NewMessage">
+                <div style={{marginRight: "0.3rem", display:"inline-block"}}>New Message </div>
                   <FontAwesomeIcon icon={faPaperPlane} />
                 </StyledLink>
               </IconButton>
