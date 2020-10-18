@@ -9,11 +9,11 @@ export const Login = ({ containerRef, loginFunc }) => {
   const [passwordErr, setpasswordErr] = useState(false)
   const validation = (e) => {
     e.preventDefault();
-    if(username === ""){
+    if(!username){
       setusernameErr(true)
       return;
     }else{setusernameErr(false)}
-    if(password === ""){
+    if(!password){
       setpasswordErr(true)
       return;
     }else{setpasswordErr(false)}

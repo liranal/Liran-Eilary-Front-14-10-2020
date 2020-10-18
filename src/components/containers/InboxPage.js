@@ -1,4 +1,4 @@
-import { FormControlLabel, Grid, Switch } from "@material-ui/core";
+import {Grid, Switch } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { delete_message, fetch_messages, patch_username } from "../../actions";
@@ -27,7 +27,7 @@ const InboxPage = () => {
   };
 
   const saveUsername = (newUsername)=>{
-    dispatch(patch_username(newUsername))
+      dispatch(patch_username(newUsername))
   }
 
   let filter = (sentFilterFlag) ? messages.filter((msg) => {return  msg.Sender === username}): messages.filter((msg) => {return  msg.Receiver === username});

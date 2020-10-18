@@ -20,19 +20,19 @@ export const Register = ({ containerRef, registerFunc }) => {
 
   const validation = (e) => {
     e.preventDefault();
-    if(username === ""){
+    if(!username){
       setusernameErr(true)
       return;
     }else{setusernameErr(false)}
 
     console.log("CHECK VALID: " + emailIsValid())
-    if(email === "" || !emailIsValid()){
+    if(!email || !emailIsValid()){
       setemailErr(true)
       return;
     }else{setemailErr(false)}
     
 
-    if(password === "" || !passwordValid()){
+    if(!password || !passwordValid()){
       setpasswordErr(true)
       return;
     }else{setpasswordErr(false)}
